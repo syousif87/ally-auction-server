@@ -1,6 +1,7 @@
 package com.allyexample.allyauctionserver.controller;
 
 import com.allyexample.allyauctionserver.model.AuctionItem;
+import com.allyexample.allyauctionserver.model.AuctionItemResponse;
 import com.allyexample.allyauctionserver.service.AuctionItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +17,7 @@ public class AuctionItemController {
             method = RequestMethod.GET,
             value = "/auctionItems",
             produces = "application/json")
-    public Object getAuctionItems() {
+    public Iterable<AuctionItem> getAuctionItems() {
         return this.service.getAll();
     }
 
@@ -24,7 +25,7 @@ public class AuctionItemController {
             method = RequestMethod.GET,
             value = "/auctionItems/{id}",
             produces = "application/json")
-    public Object getAuctionItem(@PathVariable UUID id) throws Exception {
+    public AuctionItem getAuctionItem(@PathVariable UUID id) throws Exception {
         return this.service.getById(id);
     }
 
@@ -33,7 +34,7 @@ public class AuctionItemController {
             value = "/auctionItems",
             consumes = "application/json",
             produces = "application/json")
-    public Object postAuctionItem(@RequestBody AuctionItem auctionItem) throws Exception {
-        return this.service.addAuctionItem(auctionItem).getAuctionItemId();
+    public AuctionItemResponse postAuctionItem(@RequestBody AuctionItem auctionItem) throws Exception {
+        return new AuctionItemResponse(this.service.addAuctionItem(auctionItem).getAuctionItemId());
     }
 }
