@@ -15,24 +15,25 @@ public class AuctionItem implements Serializable {
 
     @Id
     @Getter
+    @JsonProperty("auctionItemId")
     private UUID auctionItemId = UUID.randomUUID();
 
     @Getter
     @Setter
     @Column(name = "current_bid")
-    @JsonProperty("current_bid")
+    @JsonProperty("currentBid")
     private double currentBid;
 
     @Getter
     @Setter
     @Column(name = "bidder_name")
-    @JsonProperty("bidder_name")
+    @JsonProperty("bidderName")
     private String bidderName;
 
     @Getter
     @Setter
     @Column(name = "reserve_price")
-    @JsonProperty("reserve_price")
+    @JsonProperty("reservePrice")
     private double reservePrice;
 
     @Getter

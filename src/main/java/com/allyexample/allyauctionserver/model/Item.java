@@ -19,7 +19,7 @@ public class Item implements Serializable {
     @Getter
     @Setter
     @Column(name = "item_id")
-    @JsonProperty("item_id")
+    @JsonProperty("itemId")
     private String itemId;
 
     @Getter
