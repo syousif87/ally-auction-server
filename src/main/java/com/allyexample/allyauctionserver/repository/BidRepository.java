@@ -19,10 +19,7 @@ public interface BidRepository extends PagingAndSortingRepository<BidItem, UUID>
     @Override
     Optional<BidItem> findById(UUID id);
 
-    @Modifying
-    @Query(value =
-            "SELECT max_auto_bid_amount FROM bid WHERE :id = bid_id",
-            nativeQuery = true)
+    @Query(value = "SELECT max_auto_bid_amount FROM bid WHERE :id = bid_id", nativeQuery = true)
     double findMaxAutoBidById(@Param("id") UUID id);
 
 }

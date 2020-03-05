@@ -59,16 +59,21 @@ public class BidService {
                     throw new InvalidBidException();
                 } else if (bid.getMaxAutoBidAmount() < lastBidMaxAutoBid) {
                     auctionItem.setCurrentBid(bid.getMaxAutoBidAmount() + 1);
-                    auctionItem.setBidderName(bid.getBidderName());
                     this.auctionItemRepository.save(auctionItem);
                     throw new InvalidBidException();
+                } else {
+                    auctionItem.setCurrentBid(lastBidMaxAutoBid + 1);
+                    auctionItem.setBidderName(bid.getBidderName());
+                    auctionItem.setLastValidBid(bid.getBidId());
+                    return this.auctionItemRepository.save(auctionItem);
                 }
             }
 
             this.notifyUserOutbid(auctionItem.getBidderName());
 
+            auctionItem.setLastValidBid(bid.getBidId());
             auctionItem.setBidderName(bid.getBidderName());
-            auctionItem.setCurrentBid(Math.max(auctionItem.getCurrentBid(), auctionItem.getReservePrice()) + 1);
+            auctionItem.setCurrentBid(Math.max(auctionItem.getCurrentBid(), auctionItem.getReservePrice()));
             returnAuctionItem = this.auctionItemRepository.save(auctionItem);
         }
 
