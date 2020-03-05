@@ -1,5 +1,6 @@
 package com.allyexample.allyauctionserver.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,8 +16,14 @@ public class AuctionItem implements Serializable {
 
     @Id
     @Getter
+    @Column(unique = true)
     @JsonProperty("auctionItemId")
     private UUID auctionItemId = UUID.randomUUID();
+
+    @Getter
+    @Setter
+    @JsonIgnore
+    private UUID lastValidBid;
 
     @Getter
     @Setter
@@ -39,9 +46,7 @@ public class AuctionItem implements Serializable {
     @Getter
     @Setter
     @JsonProperty("item")
-    @OneToOne(
-            cascade = CascadeType.ALL,
-            orphanRemoval = true)
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     private Item item;
 
 }

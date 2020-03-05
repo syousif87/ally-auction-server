@@ -1,5 +1,6 @@
 package com.allyexample.allyauctionserver.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,14 +14,12 @@ import java.util.UUID;
 public class BidItem implements Serializable {
     private static final long serialVersionUID = 1L;
 
-//    @Id
-//    @Getter
-//    @Setter
-//    @ManyToOne
-//    @MapsId
-//    private AuctionItem auctionItem;
-//    TODO: foreign key to auction_item
     @Id
+    @Getter
+    @JsonIgnore
+    @Column(name = "bid_id", unique = true)
+    private UUID bidId = UUID.randomUUID();
+
     @Getter
     @Setter
     @Column(name = "auction_item_id")
@@ -31,7 +30,7 @@ public class BidItem implements Serializable {
     @Setter
     @Column(name = "max_auto_bid_amount")
     @JsonProperty("maxAutoBidAmount")
-    private String maxAutoBidAmount;
+    private double maxAutoBidAmount;
 
     @Getter
     @Setter
