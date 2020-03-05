@@ -79,6 +79,8 @@ public class BidService {
         double lastBidMaxAutoBid = bidRepository.findMaxAutoBidById(auctionItem.getLastValidBid());
 
         if (bid.getMaxAutoBidAmount() == lastBidMaxAutoBid) {
+            auctionItem.setCurrentBid(lastBidMaxAutoBid);
+            this.auctionItemRepository.save(auctionItem);
             throw new InvalidBidException();
         } else if (bid.getMaxAutoBidAmount() < lastBidMaxAutoBid) {
             auctionItem.setCurrentBid(bid.getMaxAutoBidAmount() + 1);

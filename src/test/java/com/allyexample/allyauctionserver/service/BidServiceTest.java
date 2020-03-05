@@ -10,8 +10,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.UUID;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
@@ -103,6 +101,31 @@ public class BidServiceTest {
             bidService.addBid(b);
         });
 
+        assertThat(this.auctionItemService.getById(a.getAuctionItemId()).getBidderName()).isEqualTo("dev1");
+    }
+
+    @Test()
+    public void invalidBid2() throws Exception  {
+        var a = new AuctionItem();
+        a.setCurrentBid(5000);
+        a.setBidderName("dev1");
+        this.auctionItemService.addAuctionItem(a);
+        var b = new BidItem();
+        b.setAuctionItemId(a.getAuctionItemId());
+        b.setMaxAutoBidAmount(6000);
+        b.setBidderName("dev1");
+        bidService.addBid(b);
+
+        var b2 = new BidItem();
+        b2.setAuctionItemId(a.getAuctionItemId());
+        b2.setMaxAutoBidAmount(6000);
+        b2.setBidderName("dev2");
+
+        Assertions.assertThrows(InvalidBidException.class, () -> {
+            bidService.addBid(b2);
+        });
+
+        assertThat(this.auctionItemService.getById(a.getAuctionItemId()).getCurrentBid()).isEqualTo(6000);
         assertThat(this.auctionItemService.getById(a.getAuctionItemId()).getBidderName()).isEqualTo("dev1");
     }
 
