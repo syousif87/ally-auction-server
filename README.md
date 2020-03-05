@@ -14,6 +14,8 @@
 ```bash
 # This project requires a local instance of PostgreSQL running, and set up as shown below.
 # ally-auction-ui Angular project is used for the front end, link above
+
+# this project is configured to recreate database every time on startup for testing purposes
 ```
 ```bash
 # setting up database
