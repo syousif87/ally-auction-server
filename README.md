@@ -36,5 +36,5 @@ $ ./gradlew bootRun
 ```
 ```bash
 # to run in IntelliJ IDEA
-# import gradle project, add lombok plugin and entable annotation processing
+# import gradle project, add lombok plugin and enable annotation processing
 ```
