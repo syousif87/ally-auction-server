@@ -10,13 +10,13 @@ import java.io.Serializable;
 import java.util.UUID;
 
 @Entity
-@Table(name = "auction_item")
+@Table(name = "auction_item", indexes = { @Index(columnList = "auction_item_id") })
 public class AuctionItem implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
     @Getter
-    @Column(unique = true)
+    @Column(unique = true, name = "auction_item_id")
     @JsonProperty("auctionItemId")
     private UUID auctionItemId = UUID.randomUUID();
 

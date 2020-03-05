@@ -10,7 +10,7 @@ import java.io.Serializable;
 import java.util.UUID;
 
 @Entity
-@Table(name = "bid")
+@Table(name = "bid", indexes = { @Index(columnList = "bid_id") })
 public class BidItem implements Serializable {
     private static final long serialVersionUID = 1L;
 
